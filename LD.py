@@ -3,13 +3,13 @@ import numpy as np
 import random
 
 
-# Estrutura Union-Find com tamanho e variação interna
+
 
 class UnionFind:
     def __init__(self, n):
         self.parent = np.arange(n)
         self.size = np.ones(n, dtype=int)
-        self.int_diff = np.zeros(n, dtype=float)  # variação interna por componente
+        self.int_diff = np.zeros(n, dtype=float)  
 
     def find(self, x):
         if self.parent[x] != x:
@@ -35,7 +35,7 @@ class UnionFind:
         return False
 
 
-# Função para construir grafo (lista dinâmica)
+#  (lista dinâmica)
 
 def construir_grafo(img):
     h, w = img.shape[:2]
@@ -55,10 +55,10 @@ def construir_grafo(img):
 
 
 
-# Algoritmo de segmentação MST
+
 
 def segmentar_mst(img, k=500):
-    # Normaliza para 3 canais se for P&B
+    
     if len(img.shape) == 2:
         img = cv2.cvtColor(img, cv2.COLOR_GRAY2BGR)
 
@@ -104,12 +104,12 @@ def colorir_segmentos(labels, num_segments, img_original):
 
 
 if __name__ == "__main__":
-    caminho = "teste.jpg"  # Substitua pelo seu arquivo
+    caminho = "teste.jpg"  
     img = cv2.imread(caminho)
     if img is None:
         raise ValueError("Imagem não encontrada!")
 
-    for k in [1000, 4000, 10000]:  # valores típicos testados no artigo
+    for k in [800, 8000, 20000]: 
         labels, nseg = segmentar_mst(img, k=k)
         colorida = colorir_segmentos(labels, nseg, img)
         cv2.imwrite(f"segmentacao_k_{k}.png", colorida)
